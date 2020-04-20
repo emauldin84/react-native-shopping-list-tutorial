@@ -7,10 +7,10 @@ import ListItem from './components/ListItem'
 
 const App = () => {
   const [items, setItems] = useState([
-    {id: Math.random(), item: 'Milk'},
-    {id: Math.random(), item: 'Eggs'},
-    {id: Math.random(), item: 'Bread'},
-    {id: Math.random(), item: 'Juice'},
+    {id: Math.random().toString(), item: 'Milk'},
+    {id: Math.random().toString(), item: 'Eggs'},
+    {id: Math.random().toString(), item: 'Bread'},
+    {id: Math.random().toString(), item: 'Juice'},
   ])
 
   const deleteItem = (id) => {
