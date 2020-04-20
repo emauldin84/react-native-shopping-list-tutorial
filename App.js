@@ -1,9 +1,10 @@
 import React, {useState} from 'react'
-import {View, Text, StyleSheet, Image, FlatList} from 'react-native'
+import {View, Text, StyleSheet, Image, FlatList, Alert} from 'react-native'
 
 
 import Header from './components/Header'
 import ListItem from './components/ListItem'
+import AddItem from './components/AddItem'
 
 const App = () => {
   const [items, setItems] = useState([
@@ -21,10 +22,27 @@ const App = () => {
     })
   }
 
+  const addItem = (item) => {
+    if(!item){
+      Alert.alert('Error', 'Please enter an item')
+    }else{
+      setItems(prevItems => {
+        return [
+          {
+            id: Math.random().toString(), 
+            item: item
+          },
+          ...prevItems
+        ]
+      })
+    }
+  }
+
 
   return(
     <View style={styles.container}>
       <Header/>
+      <AddItem addItem={addItem}/>
       <FlatList 
         data={items}
         renderItem={({item}) => <ListItem item={item} deleteItem={deleteItem}/>}
