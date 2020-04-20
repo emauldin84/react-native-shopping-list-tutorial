@@ -1,6 +1,7 @@
 import React, {} from 'react'
 import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native'
 import Icon from 'react-native-vector-icons/dist/FontAwesome'
+Icon.loadFont()
 
 const ListItem = ({item}) => {
     return(
