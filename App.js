@@ -13,13 +13,21 @@ const App = () => {
     {id: Math.random(), item: 'Juice'},
   ])
 
+  const deleteItem = (id) => {
+    setItems(prevItems => {
+      return prevItems.filter(item => {
+        return item.id != id
+      })
+    })
+  }
+
 
   return(
     <View style={styles.container}>
       <Header/>
       <FlatList 
         data={items}
-        renderItem={({item}) => <ListItem item={item}/>}
+        renderItem={({item}) => <ListItem item={item} deleteItem={deleteItem}/>}
       />
     </View>
   )
