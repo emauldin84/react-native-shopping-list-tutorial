@@ -3,7 +3,7 @@ import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native'
 import Icon from 'react-native-vector-icons/dist/FontAwesome'
 Icon.loadFont()
 
-const ListItem = ({item, deleteItem, toggleModal}) => {
+const ListItem = ({item, deleteItem, handleItemEdit}) => {
     return(
         <TouchableOpacity style={styles.listItem}>
             <View style={styles.listItemView}>
@@ -12,7 +12,7 @@ const ListItem = ({item, deleteItem, toggleModal}) => {
                         name="edit" 
                         size={20} 
                         color='#c2bad8'
-                        onPress={toggleModal} 
+                        onPress={() => handleItemEdit(item.item, item.details)} 
                         />
                     <Text style={styles.listItemText}>{item.item}</Text>
                 </View>

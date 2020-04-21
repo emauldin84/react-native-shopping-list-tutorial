@@ -15,6 +15,7 @@ const App = () => {
     {id: Math.random().toString(), item: 'Juice', details: ''},
   ])
   const [modalVisible, setModalVisible] = useState(false)
+  const [selectedItem, setSelectedItem] = useState({})
 
   const deleteItem = (id) => {
     setItems(prevItems => {
@@ -24,7 +25,7 @@ const App = () => {
     })
   }
 
-  const addItem = (item) => {
+  const handleAddItem = (item) => {
     if(!item){
       Alert.alert('Error', 'Please enter an item')
     }else{
@@ -40,19 +41,32 @@ const App = () => {
     }
   }
 
-  const toggleModal = () => {
+  const handleToggleModal = () => {
     setModalVisible(!modalVisible)
+  }
+
+  const handleSelectedItem = (item, details) => {
+    setSelectedItem({
+      id: Math.random().toString(),
+      item,
+      details
+    })
+  }
+
+  const handleItemEdit = (item, details) => {
+    handleToggleModal()
+    handleSelectedItem(item, details)
   }
 
 
   return(
     <View style={styles.container}>
       <Header/>
-      <ItemDetailsModal modalVisible={modalVisible} toggleModal={toggleModal}/>
-      <AddItem addItem={addItem}/>
+      <ItemDetailsModal modalVisible={modalVisible} handleToggleModal={handleToggleModal} selectedItem={selectedItem}/>
+      <AddItem handleAddItem={handleAddItem}/>
       <FlatList 
         data={items}
-        renderItem={({item}) => <ListItem item={item} deleteItem={deleteItem} toggleModal={toggleModal}/>}
+        renderItem={({item}) => <ListItem item={item} deleteItem={deleteItem} handleItemEdit={handleItemEdit}/>}
         style={styles.itemList}
       />
     </View>

@@ -3,7 +3,7 @@ import {View, Text, StyleSheet, TextInput, TouchableOpacity} from 'react-native'
 import Icon from 'react-native-vector-icons/dist/FontAwesome'
 Icon.loadFont()
 
-const AddItem = ({addItem}) => {
+const AddItem = ({handleAddItem}) => {
     const [text, setText] = useState('')
 
     const onChange=(textValue) => {
@@ -11,7 +11,7 @@ const AddItem = ({addItem}) => {
         
     }
     const handleSubmit = () => {
-        addItem(text)
+        handleAddItem(text)
         setText('')
     }
 

@@ -3,7 +3,7 @@ import {View, Text, StyleSheet, Modal, TouchableWithoutFeedback, Keyboard} from 
 import Icon from 'react-native-vector-icons/dist/FontAwesome'
 Icon.loadFont()
 
-const ItemDetailsModal = ({modalVisible, toggleModal}) => {
+const ItemDetailsModal = ({modalVisible, handleToggleModal, selectedItem}) => {
     return(
         <Modal visible={modalVisible} animationType='slide'>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -12,11 +12,11 @@ const ItemDetailsModal = ({modalVisible, toggleModal}) => {
                         name="close" 
                         size={20}
                         style={{...styles.modalClose}} 
-                        onPress={toggleModal} 
+                        onPress={handleToggleModal} 
                     />
                     <View style={styles.modalContent}>
-                        <Text style={styles.itemTitle}>Item</Text>
-                        <Text style={styles.itemDetails}>Item Details</Text>
+                    <Text style={styles.itemTitle}>{selectedItem.item}</Text>
+                        <Text style={styles.itemDetails}>{selectedItem.details}</Text>
                     </View>
                 </View>
             </TouchableWithoutFeedback>
@@ -25,6 +25,9 @@ const ItemDetailsModal = ({modalVisible, toggleModal}) => {
 }
 
     const styles = StyleSheet.create({
+        modalContainer:{
+            flex: 1
+        },
         modalClose:{
             alignSelf: 'flex-end',
             padding: 10,
@@ -34,7 +37,8 @@ const ItemDetailsModal = ({modalVisible, toggleModal}) => {
         },
         modalContent:{
             justifyContent: 'center',
-            alignItems: 'center'
+            alignItems: 'center',
+            
         },
         itemTitle: {
 
