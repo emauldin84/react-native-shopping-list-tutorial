@@ -71,6 +71,7 @@ const App = () => {
       }
     })
     setItems(newItems)
+    handleSelectedItem(id, title, details)
 }
 
 

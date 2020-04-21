@@ -9,9 +9,13 @@ const ItemDetailsModal = ({modalVisible, setModalVisible, selectedItem, handleUp
     const [detailsText, setDetailsText] = useState('')
 
     useEffect(() => {
+        console.log('running useEffect 1')
         setTitleText(selectedItem.item)
+    }, [selectedItem.item])
+    useEffect(() => {
+        console.log('running useEffect 2')
         setDetailsText(selectedItem.details)
-    }, [selectedItem.item, selectedItem.details])
+    }, [selectedItem.details])
 
     const onTitleChange=(textValue) => {
         setTitleText(textValue)
@@ -22,6 +26,8 @@ const ItemDetailsModal = ({modalVisible, setModalVisible, selectedItem, handleUp
 
     const handleBlur = async () => {
         await handleUpdateItem(selectedItem.id, titleText, detailsText)
+        // setTitleText(selectedItem.item)
+        // setDetailsText(selectedItem.details)
         setIsEdting(false)
         
     }
@@ -75,16 +81,18 @@ const ItemDetailsModal = ({modalVisible, setModalVisible, selectedItem, handleUp
         },
         modalContent:{
             justifyContent: 'center',
-            paddingLeft: 20,
+            paddingHorizontal: 20,
             
         },
         itemTitle: {
             paddingBottom: 15,
-            fontSize: 30
+            fontSize: 30,
+            backgroundColor: '#c2bad8'
         },
         itemDetails: {
             paddingBottom: 15,
-            fontSize: 20
+            fontSize: 20,
+            backgroundColor: '#c2bad8'
         },
         input: {
             height: 60,
