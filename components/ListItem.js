@@ -12,7 +12,7 @@ const ListItem = ({item, deleteItem, handleItemEdit}) => {
                         name="edit" 
                         size={20} 
                         color='#c2bad8'
-                        onPress={() => handleItemEdit(item.item, item.details)} 
+                        onPress={() => handleItemEdit(item.id, item.item, item.details)} 
                         />
                     <Text style={styles.listItemText}>{item.item}</Text>
                 </View>

@@ -45,24 +45,39 @@ const App = () => {
     setModalVisible(!modalVisible)
   }
 
-  const handleSelectedItem = (item, details) => {
+  const handleSelectedItem = (id, item, details) => {
     setSelectedItem({
-      id: Math.random().toString(),
+      id,
       item,
       details
     })
   }
 
-  const handleItemEdit = (item, details) => {
+  const handleItemEdit = (id, item, details) => {
     handleToggleModal()
-    handleSelectedItem(item, details)
+    handleSelectedItem(id, item, details)
   }
+
+  const handleUpdateItem = (id, title, details) => {
+    let newItems = items.map(item => {
+      if (item.id === id){
+        return {
+          id,
+          item: title,
+          details
+        }
+      } else {
+        return item
+      }
+    })
+    setItems(newItems)
+}
 
 
   return(
     <View style={styles.container}>
       <Header/>
-      <ItemDetailsModal modalVisible={modalVisible} handleToggleModal={handleToggleModal} selectedItem={selectedItem}/>
+      <ItemDetailsModal modalVisible={modalVisible} handleToggleModal={handleToggleModal} selectedItem={selectedItem} handleUpdateItem={handleUpdateItem}/>
       <AddItem handleAddItem={handleAddItem}/>
       <FlatList 
         data={items}
