@@ -41,7 +41,7 @@ const App = () => {
     }
   }
 
-  const handleToggleModal = () => {
+  const handleOpenModal = () => {
     setModalVisible(!modalVisible)
   }
 
@@ -54,7 +54,7 @@ const App = () => {
   }
 
   const handleItemEdit = (id, item, details) => {
-    handleToggleModal()
+    handleOpenModal()
     handleSelectedItem(id, item, details)
   }
 
@@ -77,7 +77,7 @@ const App = () => {
   return(
     <View style={styles.container}>
       <Header/>
-      <ItemDetailsModal modalVisible={modalVisible} handleToggleModal={handleToggleModal} selectedItem={selectedItem} handleUpdateItem={handleUpdateItem}/>
+      <ItemDetailsModal modalVisible={modalVisible} setModalVisible={setModalVisible} selectedItem={selectedItem} handleUpdateItem={handleUpdateItem}/>
       <AddItem handleAddItem={handleAddItem}/>
       <FlatList 
         data={items}

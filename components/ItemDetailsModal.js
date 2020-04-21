@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react'
-import {View, Text, StyleSheet, Modal, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard} from 'react-native'
+import {View, Text, StyleSheet, Modal, TextInput, TouchableWithoutFeedback, Keyboard, Alert} from 'react-native'
 import Icon from 'react-native-vector-icons/dist/FontAwesome'
 Icon.loadFont()
 
-const ItemDetailsModal = ({modalVisible, handleToggleModal, selectedItem, handleUpdateItem}) => {
+const ItemDetailsModal = ({modalVisible, setModalVisible, selectedItem, handleUpdateItem}) => {
     const [isEditing, setIsEdting] = useState(false)
     const [titleText, setTitleText] = useState('')
     const [detailsText, setDetailsText] = useState('')
@@ -11,14 +11,7 @@ const ItemDetailsModal = ({modalVisible, handleToggleModal, selectedItem, handle
     useEffect(() => {
         setTitleText(selectedItem.item)
         setDetailsText(selectedItem.details)
-    }, [selectedItem])
-
-    // console.log('isEditing', isEditing)
-    // console.log('titleText STATE', titleText)
-    // console.log('detailsText STATE', detailsText)
-    // console.log('selectedItem.item PROPS', selectedItem.item)
-    // console.log('selectedItem.details PROPS', selectedItem.details)
-    // console.log('selectedItem.id PROPS', selectedItem.id)
+    }, [selectedItem.item, selectedItem.details])
 
     const onTitleChange=(textValue) => {
         setTitleText(textValue)
@@ -27,11 +20,18 @@ const ItemDetailsModal = ({modalVisible, handleToggleModal, selectedItem, handle
         setDetailsText(textValue)
     }
 
-    const handleBlur = () => {
-        console.log('SAVING')
-        console.log('selectedItem.id', selectedItem.id)
-        handleUpdateItem(selectedItem.id, titleText, detailsText)
+    const handleBlur = async () => {
+        await handleUpdateItem(selectedItem.id, titleText, detailsText)
         setIsEdting(false)
+        
+    }
+
+    const handleCloseModal = () => {
+        if(!titleText){
+            Alert.alert('Error', 'Please enter an item')
+        }else{
+            setModalVisible(false)
+        }
     }
     const itemDisplay = !isEditing ? 
     <View style={styles.modalContent}>
@@ -39,12 +39,10 @@ const ItemDetailsModal = ({modalVisible, handleToggleModal, selectedItem, handle
         <Text style={styles.itemDetails} onPress={() => setIsEdting(true)}>{selectedItem.details ? selectedItem.details : 'Item Details'}</Text>
     </View> :
     <View style={styles.modalContent}>
-        <TouchableWithoutFeedback>
             <View onBlur={handleBlur}>
                 <TextInput placeholder='Item Title' style={styles.itemTitle} onChangeText={onTitleChange} value={titleText} />
                 <TextInput placeholder='Item Details' style={styles.itemDetails} onChangeText={onDetailsChange} value={detailsText} />
             </View>
-        </TouchableWithoutFeedback>
     </View>
 
     return(
@@ -55,7 +53,7 @@ const ItemDetailsModal = ({modalVisible, handleToggleModal, selectedItem, handle
                         name="close" 
                         size={20}
                         style={{...styles.modalClose}} 
-                        onPress={handleToggleModal} 
+                        onPress={handleCloseModal} 
                     />
                     {itemDisplay}
                 </View>
