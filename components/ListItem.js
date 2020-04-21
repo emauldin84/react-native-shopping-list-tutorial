@@ -8,7 +8,14 @@ const ListItem = ({item, deleteItem}) => {
         
         <TouchableOpacity style={styles.listItem}>
             <View style={styles.listItemView}>
-                <Text style={styles.listItemText}>{item.item}</Text>
+                <View style={styles.itemLeft}>
+                    <Icon 
+                        name="edit" 
+                        size={20} 
+                        color='#c2bad8' 
+                        />
+                    <Text style={styles.listItemText}>{item.item}</Text>
+                </View>
                 <Icon 
                     name="remove" 
                     size={20} 
@@ -34,7 +41,12 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     listItemText:{
-        fontSize: 18
+        fontSize: 18,
+        marginLeft: 10,
+    },
+    itemLeft: {
+        flexDirection: 'row',
+        justifyContent: 'center'
     }
 })
 

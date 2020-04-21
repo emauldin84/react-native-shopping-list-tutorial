@@ -8,10 +8,10 @@ import AddItem from './components/AddItem'
 
 const App = () => {
   const [items, setItems] = useState([
-    {id: Math.random().toString(), item: 'Milk'},
-    {id: Math.random().toString(), item: 'Eggs'},
-    {id: Math.random().toString(), item: 'Bread'},
-    {id: Math.random().toString(), item: 'Juice'},
+    {id: Math.random().toString(), item: 'Milk', details: '2% in a carton.'},
+    {id: Math.random().toString(), item: 'Eggs', details: ''},
+    {id: Math.random().toString(), item: 'Bread', details: ''},
+    {id: Math.random().toString(), item: 'Juice', details: ''},
   ])
 
   const deleteItem = (id) => {
@@ -46,6 +46,7 @@ const App = () => {
       <FlatList 
         data={items}
         renderItem={({item}) => <ListItem item={item} deleteItem={deleteItem}/>}
+        style={styles.itemList}
       />
     </View>
   )
@@ -56,6 +57,9 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 60,
   },
+  itemList: {
+    // flex: 1
+  }
 })
 
 export default App
