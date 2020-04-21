@@ -5,6 +5,7 @@ import {View, Text, StyleSheet, Image, FlatList, Alert} from 'react-native'
 import Header from './components/Header'
 import ListItem from './components/ListItem'
 import AddItem from './components/AddItem'
+import ItemDetailsModal from './components/ItemDetailsModal'
 
 const App = () => {
   const [items, setItems] = useState([
@@ -13,6 +14,7 @@ const App = () => {
     {id: Math.random().toString(), item: 'Bread', details: ''},
     {id: Math.random().toString(), item: 'Juice', details: ''},
   ])
+  const [modalVisible, setModalVisible] = useState(false)
 
   const deleteItem = (id) => {
     setItems(prevItems => {
@@ -38,14 +40,19 @@ const App = () => {
     }
   }
 
+  const toggleModal = () => {
+    setModalVisible(!modalVisible)
+  }
+
 
   return(
     <View style={styles.container}>
       <Header/>
+      <ItemDetailsModal modalVisible={modalVisible} toggleModal={toggleModal}/>
       <AddItem addItem={addItem}/>
       <FlatList 
         data={items}
-        renderItem={({item}) => <ListItem item={item} deleteItem={deleteItem}/>}
+        renderItem={({item}) => <ListItem item={item} deleteItem={deleteItem} toggleModal={toggleModal}/>}
         style={styles.itemList}
       />
     </View>
