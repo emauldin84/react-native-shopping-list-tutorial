@@ -53,7 +53,7 @@ const App = () => {
     })
   }
 
-  const handleItemEdit = (id, item, details) => {
+  const handleItemView = (id, item, details) => {
     handleOpenModal()
     handleSelectedItem(id, item, details)
   }
@@ -81,7 +81,7 @@ const App = () => {
       <AddItem handleAddItem={handleAddItem}/>
       <FlatList 
         data={items}
-        renderItem={({item}) => <ListItem item={item} deleteItem={deleteItem} handleItemEdit={handleItemEdit}/>}
+        renderItem={({item}) => <ListItem item={item} deleteItem={deleteItem} handleItemView={handleItemView}/>}
         style={styles.itemList}
       />
     </View>
