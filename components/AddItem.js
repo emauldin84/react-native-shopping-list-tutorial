@@ -3,15 +3,22 @@ import {View, Text, StyleSheet, TextInput, TouchableOpacity} from 'react-native'
 import Icon from 'react-native-vector-icons/dist/FontAwesome'
 Icon.loadFont()
 
-const AddItem = ({title, addItem}) => {
+const AddItem = ({addItem}) => {
     const [text, setText] = useState('')
 
-    const onChange=(textValue) => setText(textValue)
+    const onChange=(textValue) => {
+        setText(textValue)
+        
+    }
+    const handleSubmit = () => {
+        addItem(text)
+        setText('')
+    }
 
     return(
         <View>
-            <TextInput placeholder='Add Item...' style={styles.input} onChangeText={onChange} keyboardType='default' />
-            <TouchableOpacity style={styles.btn} onPress={() => addItem(text)}>
+            <TextInput placeholder='Add Item...' style={styles.input} onChangeText={onChange} value={text} />
+            <TouchableOpacity style={styles.btn} onPress={handleSubmit}>
                 <Text style={styles.btnText}><Icon name="plus" size={20}/>Add Item</Text>
             </TouchableOpacity>
         </View>
