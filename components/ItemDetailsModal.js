@@ -25,9 +25,7 @@ const ItemDetailsModal = ({modalVisible, setModalVisible, selectedItem, handleUp
     }
 
     const handleBlur = async () => {
-        await handleUpdateItem(selectedItem.id, titleText, detailsText)
-        // setTitleText(selectedItem.item)
-        // setDetailsText(selectedItem.details)
+        handleUpdateItem(selectedItem.id, titleText, detailsText)
         setIsEdting(false)
         
     }
@@ -41,13 +39,13 @@ const ItemDetailsModal = ({modalVisible, setModalVisible, selectedItem, handleUp
     }
     const itemDisplay = !isEditing ? 
     <View style={styles.modalContent}>
-        <Text style={styles.itemTitle} onPress={() => setIsEdting(true)}>{selectedItem.item}</Text>
-        <Text style={styles.itemDetails} onPress={() => setIsEdting(true)}>{selectedItem.details ? selectedItem.details : 'Item Details'}</Text>
+        <Text style={{...styles.text, ...styles.itemTitle}} onPress={() => setIsEdting(true)}>{selectedItem.item}</Text>
+        <Text style={{...styles.text, ...styles.itemDetails}} onPress={() => setIsEdting(true)}>{selectedItem.details ? selectedItem.details : 'Item Details'}</Text>
     </View> :
     <View style={styles.modalContent}>
             <View onBlur={handleBlur}>
-                <TextInput placeholder='Item Title' style={styles.itemTitle} onChangeText={onTitleChange} value={titleText} />
-                <TextInput placeholder='Item Details' style={styles.itemDetails} onChangeText={onDetailsChange} value={detailsText} />
+                <TextInput placeholder='Item Title' style={{...styles.text ,...styles.itemTitle, ...styles.textInput}} onChangeText={onTitleChange} value={titleText} />
+                <TextInput placeholder='Item Details' style={{...styles.text, ...styles.itemDetails, ...styles.textInput}} onChangeText={onDetailsChange} value={detailsText} />
             </View>
     </View>
 
@@ -80,27 +78,28 @@ const ItemDetailsModal = ({modalVisible, setModalVisible, selectedItem, handleUp
             marginBottom: 0,
         },
         modalContent:{
-            justifyContent: 'center',
             paddingHorizontal: 20,
+            marginTop: 20,
             
         },
+        text:{
+            padding: 8,
+            borderWidth: 1,
+            borderColor: '#fff',
+            height: 50
+        },
         itemTitle: {
-            paddingBottom: 15,
             fontSize: 30,
-            backgroundColor: '#c2bad8'
+            marginBottom: 10,
         },
         itemDetails: {
-            paddingBottom: 15,
             fontSize: 20,
-            backgroundColor: '#c2bad8'
         },
-        input: {
-            height: 60,
-            padding: 8,
-            fontSize: 16,
-            alignSelf: 'center',
-            width: '80%'
-        },
+
+        textInput: {
+            borderColor: '#eee',
+            borderRadius: 3,
+        }
 })
 
 export default ItemDetailsModal
