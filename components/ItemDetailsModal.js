@@ -39,21 +39,21 @@ const ItemDetailsModal = ({modalVisible, setModalVisible, selectedItem, handleUp
     }
     const itemTitleDisplay = !editingTitle ? 
     <View style={styles.modalContent}>
-        <Text style={{...styles.text, ...styles.itemTitle}} onPress={() => setEditingTitle(true)}>{selectedItem.item}</Text>
+        <Text style={selectedItem.item ? {...styles.text, ...styles.itemTitle} : {...styles.text, ...styles.itemTitle, ...styles.lightGreyFont}} onPress={() => setEditingTitle(true)}>{selectedItem.item ? selectedItem.item : 'Enter Item Title'}</Text>
     </View> :
     <View style={styles.modalContent}>
             <View onBlur={handleBlur}>
-                <TextInput placeholder='Item Title' style={{...styles.text ,...styles.itemTitle, ...styles.textInput}} onChangeText={onTitleChange} value={titleText} />
+                <TextInput placeholder='Enter Item Title' style={{...styles.text ,...styles.itemTitle, ...styles.textInput}} onChangeText={onTitleChange} value={titleText} />
             </View>
     </View>
 
     const itemDetailsDisplay = !editingDetails ? 
     <View style={styles.modalContent}>
-        <Text style={{...styles.text, ...styles.itemDetails}} onPress={() => setEditingDetails(true)}>{selectedItem.details ? selectedItem.details : 'Item Details'}</Text>
+        <Text style={selectedItem.details ? {...styles.text, ...styles.itemDetails} : {...styles.text, ...styles.itemDetails, ...styles.lightGreyFont}} onPress={() => setEditingDetails(true)}>{selectedItem.details ? selectedItem.details : 'Enter Item Details'}</Text>
     </View> :
     <View style={styles.modalContent}>
             <View onBlur={handleBlur}>
-                <TextInput placeholder='Item Details' style={{...styles.text, ...styles.itemDetails, ...styles.textInput}} onChangeText={onDetailsChange} value={detailsText} />
+                <TextInput placeholder='Enter Item Details' style={{...styles.text, ...styles.itemDetails, ...styles.textInput}} onChangeText={onDetailsChange} value={detailsText} />
             </View>
     </View>
 
@@ -108,6 +108,9 @@ const ItemDetailsModal = ({modalVisible, setModalVisible, selectedItem, handleUp
         textInput: {
             borderColor: '#eee',
             borderRadius: 3,
+        },
+        lightGreyFont: {
+            color: '#ccc'
         }
 })
 
