@@ -51,6 +51,8 @@ const ItemDetailsModal = ({modalVisible, setModalVisible, selectedItem, handleUp
                 ])
         }else{
             setModalVisible(false)
+            setEditingTitle(false)
+            setEditingDetails(false)
         }
     }
     const itemTitleDisplay = !editingTitle ? 
