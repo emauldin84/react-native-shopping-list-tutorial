@@ -4,16 +4,15 @@ import Icon from 'react-native-vector-icons/dist/FontAwesome'
 Icon.loadFont()
 
 const ItemDetailsModal = ({modalVisible, setModalVisible, selectedItem, handleUpdateItem}) => {
-    const [isEditing, setIsEdting] = useState(false)
+    const [editingTitle, setEditingTitle] = useState(false)
+    const [editingDetails, setEditingDetails] = useState(false)
     const [titleText, setTitleText] = useState('')
     const [detailsText, setDetailsText] = useState('')
 
     useEffect(() => {
-        console.log('running useEffect 1')
         setTitleText(selectedItem.item)
     }, [selectedItem.item])
     useEffect(() => {
-        console.log('running useEffect 2')
         setDetailsText(selectedItem.details)
     }, [selectedItem.details])
 
@@ -26,7 +25,8 @@ const ItemDetailsModal = ({modalVisible, setModalVisible, selectedItem, handleUp
 
     const handleBlur = async () => {
         handleUpdateItem(selectedItem.id, titleText, detailsText)
-        setIsEdting(false)
+        setEditingTitle(false)
+        setEditingDetails(false)
         
     }
 
@@ -37,14 +37,22 @@ const ItemDetailsModal = ({modalVisible, setModalVisible, selectedItem, handleUp
             setModalVisible(false)
         }
     }
-    const itemDisplay = !isEditing ? 
+    const itemTitleDisplay = !editingTitle ? 
     <View style={styles.modalContent}>
-        <Text style={{...styles.text, ...styles.itemTitle}} onPress={() => setIsEdting(true)}>{selectedItem.item}</Text>
-        <Text style={{...styles.text, ...styles.itemDetails}} onPress={() => setIsEdting(true)}>{selectedItem.details ? selectedItem.details : 'Item Details'}</Text>
+        <Text style={{...styles.text, ...styles.itemTitle}} onPress={() => setEditingTitle(true)}>{selectedItem.item}</Text>
     </View> :
     <View style={styles.modalContent}>
             <View onBlur={handleBlur}>
                 <TextInput placeholder='Item Title' style={{...styles.text ,...styles.itemTitle, ...styles.textInput}} onChangeText={onTitleChange} value={titleText} />
+            </View>
+    </View>
+
+    const itemDetailsDisplay = !editingDetails ? 
+    <View style={styles.modalContent}>
+        <Text style={{...styles.text, ...styles.itemDetails}} onPress={() => setEditingDetails(true)}>{selectedItem.details ? selectedItem.details : 'Item Details'}</Text>
+    </View> :
+    <View style={styles.modalContent}>
+            <View onBlur={handleBlur}>
                 <TextInput placeholder='Item Details' style={{...styles.text, ...styles.itemDetails, ...styles.textInput}} onChangeText={onDetailsChange} value={detailsText} />
             </View>
     </View>
@@ -59,7 +67,8 @@ const ItemDetailsModal = ({modalVisible, setModalVisible, selectedItem, handleUp
                         style={{...styles.modalClose}} 
                         onPress={handleCloseModal} 
                     />
-                    {itemDisplay}
+                    {itemTitleDisplay}
+                    {itemDetailsDisplay}
                 </View>
             </TouchableWithoutFeedback>
         </Modal>
