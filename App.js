@@ -78,7 +78,7 @@ const App = () => {
   return(
     <View style={styles.container}>
       <Header/>
-      <ItemDetailsModal modalVisible={modalVisible} setModalVisible={setModalVisible} selectedItem={selectedItem} handleUpdateItem={handleUpdateItem}/>
+      <ItemDetailsModal modalVisible={modalVisible} setModalVisible={setModalVisible} selectedItem={selectedItem} handleUpdateItem={handleUpdateItem} deleteItem={deleteItem}/>
       <AddItem handleAddItem={handleAddItem}/>
       <FlatList 
         data={items}

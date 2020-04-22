@@ -1,6 +1,6 @@
 import React, {} from 'react'
 import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native'
-import Icon from 'react-native-vector-icons/dist/FontAwesome'
+import Icon from 'react-native-vector-icons/dist/AntDesign'
 Icon.loadFont()
 
 const ListItem = ({item, deleteItem, handleItemView}) => {
@@ -11,7 +11,7 @@ const ListItem = ({item, deleteItem, handleItemView}) => {
                     <Text style={styles.listItemText}>{item.item}</Text>
                 </View>
                 <Icon 
-                    name="remove" 
+                    name="close" 
                     size={20} 
                     color='firebrick' 
                     onPress={() => deleteItem(item.id)}

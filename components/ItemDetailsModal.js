@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react'
 import {View, Text, StyleSheet, Modal, TextInput, TouchableWithoutFeedback, Keyboard, Alert} from 'react-native'
-import Icon from 'react-native-vector-icons/dist/FontAwesome'
+import Icon from 'react-native-vector-icons/dist/AntDesign'
 Icon.loadFont()
 
-const ItemDetailsModal = ({modalVisible, setModalVisible, selectedItem, handleUpdateItem}) => {
+const ItemDetailsModal = ({modalVisible, setModalVisible, selectedItem, handleUpdateItem, deleteItem}) => {
     const [editingTitle, setEditingTitle] = useState(false)
     const [editingDetails, setEditingDetails] = useState(false)
     const [titleText, setTitleText] = useState('')
@@ -23,16 +23,32 @@ const ItemDetailsModal = ({modalVisible, setModalVisible, selectedItem, handleUp
         setDetailsText(textValue)
     }
 
-    const handleBlur = async () => {
+    const handleBlur = () => {
         handleUpdateItem(selectedItem.id, titleText, detailsText)
         setEditingTitle(false)
         setEditingDetails(false)
         
     }
+    const handleDeleteAndClose = () => {
+        deleteItem(selectedItem.id)
+        setModalVisible(false)
+    }
 
     const handleCloseModal = () => {
         if(!titleText){
-            Alert.alert('Error', 'Please enter an item')
+            Alert.alert(
+                'Hold up!',
+                'Item Title is Required before close',
+                [
+                    {
+                        text: "Cancel",
+                        style: 'cancel'
+                    },
+                    {
+                        text: "Delete Item Permanently",
+                        onPress: handleDeleteAndClose
+                    }
+                ])
         }else{
             setModalVisible(false)
         }
@@ -63,7 +79,7 @@ const ItemDetailsModal = ({modalVisible, setModalVisible, selectedItem, handleUp
                 <View style={styles.modalContainer}>
                     <Icon 
                         name="close" 
-                        size={20}
+                        size={30}
                         style={{...styles.modalClose}} 
                         onPress={handleCloseModal} 
                     />
