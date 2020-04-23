@@ -1,6 +1,6 @@
-import React, {useState} from 'react'
+import React, { useState, useEffect } from 'react'
 import {View, Text, StyleSheet, Image, FlatList, Alert} from 'react-native'
-
+import firestore from '@react-native-firebase/firestore'
 
 import Header from './components/Header'
 import ListItem from './components/ListItem'
@@ -14,6 +14,17 @@ const App = () => {
     {id: Math.random().toString(), item: 'Bread', details: ''},
     {id: Math.random().toString(), item: 'Juice', details: ''},
   ])
+  useEffect(() => {
+    firestore()
+    .collection('items')
+    .get()
+    .then(querySnapshot => {
+      console.log(querySnapshot)
+    })
+    
+
+  }, [])
+
   const [modalVisible, setModalVisible] = useState(false)
   const [selectedItem, setSelectedItem] = useState({})
 
