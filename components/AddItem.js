@@ -15,12 +15,18 @@ const AddItem = ({handleAddItem}) => {
         setText('')
     }
 
+    let button = text ? <TouchableOpacity style={styles.btn} onPress={handleSubmit}>
+                            <Text style={styles.btnText}><Icon name="plus" size={20}/>Add Item</Text>
+                        </TouchableOpacity>
+                        :
+                        <TouchableOpacity style={styles.disabledBtn}>
+                            <Text style={styles.disabledBtnText}><Icon name="plus" size={20}/>Add Item</Text>
+                        </TouchableOpacity>
+
     return(
         <View style={styles.container}>
             <TextInput placeholder='Add Item...' style={styles.input} onChangeText={onChange} value={text} />
-            <TouchableOpacity style={styles.btn} onPress={handleSubmit}>
-                <Text style={styles.btnText}><Icon name="plus" size={20}/>Add Item</Text>
-            </TouchableOpacity>
+            {button}
         </View>
     )
 }
@@ -45,7 +51,21 @@ const AddItem = ({handleAddItem}) => {
             color: 'darkslateblue',
             fontSize: 20,
             textAlign: 'center'
+        },
+        disabledBtn: {
+            backgroundColor: '#eee',
+            padding: 9,
+            margin: 5,
+            width: 200,
+            alignSelf: 'center',
+            marginBottom: 15,
+        },
+        disabledBtnText: {
+            color: '#aaa',
+            fontSize: 20,
+            textAlign: 'center'
         }
+        
 })
 
 export default AddItem
