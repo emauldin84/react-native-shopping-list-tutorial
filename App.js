@@ -104,17 +104,19 @@ const App = () => {
     //     return item
     //   }
     // })
-    firestore()
-    .collection('items')
-    .doc(id)
-    .update({
-      item: title,
-      details: details
-    })
-    .then(() => {
-      fetchSetItems()
-    })
-    handleSelectedItem(id, title, details)
+      firestore()
+      .collection('items')
+      .doc(id)
+      .update({
+        item: title,
+        details: details
+      })
+      .then(() => {
+        fetchSetItems()
+      })
+      .then(() => {
+        handleSelectedItem(id, title, details)
+      })
 }
 
 let screenDisplay = !fetching ? 

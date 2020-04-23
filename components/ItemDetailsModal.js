@@ -34,7 +34,7 @@ const ItemDetailsModal = ({modalVisible, setModalVisible, selectedItem, handleUp
         setModalVisible(false)
     }
 
-    const handleCloseModal = () => {
+    const handleCloseModal = async () => {
         if(!titleText){
             Alert.alert(
                 'Hold up!',
@@ -50,10 +50,10 @@ const ItemDetailsModal = ({modalVisible, setModalVisible, selectedItem, handleUp
                     }
                 ])
         }else{
-            handleUpdateItem(selectedItem.id, titleText, detailsText)
+            handleUpdateItem(selectedItem.id, titleText, detailsText),
+            setEditingTitle(false),
+            setEditingDetails(false),
             setModalVisible(false)
-            setEditingTitle(false)
-            setEditingDetails(false)
         }
     }
     const itemTitleDisplay = !editingTitle ? 
