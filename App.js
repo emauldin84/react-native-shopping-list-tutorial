@@ -14,6 +14,7 @@ const App = () => {
 
   useEffect(() => {
     fetchSetItems()
+    console.log(items)
   }, [])
 
   const fetchSetItems = () => {
@@ -22,7 +23,6 @@ const App = () => {
     .get()
     .then(querySnapshot => {
       const items = querySnapshot.docs.map(item => {
-        console.log(item.id, '=>', item.data())
         return {
           id: item.id,
           item: item.data().item,
@@ -33,11 +33,18 @@ const App = () => {
     })
   }
   const deleteItem = (id) => {
-    setItems(prevItems => {
-      return prevItems.filter(item => {
-        return item.id != id
-      })
+    firestore()
+    .collection('items')
+    .doc(id)
+    .delete()
+    .then(() => {
+      fetchSetItems()
     })
+    // setItems(prevItems => {
+    //   return prevItems.filter(item => {
+    //     return item.id != id
+    //   })
+    // })
   }
 
   const handleAddItem = (item) => {
