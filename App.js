@@ -6,15 +6,16 @@ import Header from './components/Header'
 import ListItem from './components/ListItem'
 import AddItem from './components/AddItem'
 import ItemDetailsModal from './components/ItemDetailsModal'
+import Spinner from './components/Spinner'
 
 const App = () => {
   const [items, setItems] = useState([])
   const [modalVisible, setModalVisible] = useState(false)
   const [selectedItem, setSelectedItem] = useState({})
+  const [fetching, setFetching] = useState(true)
 
   useEffect(() => {
     fetchSetItems()
-    console.log(items)
   }, [])
 
   const fetchSetItems = () => {
@@ -30,6 +31,7 @@ const App = () => {
         }
       })
       setItems(items)
+      setFetching(false)
     })
   }
   const deleteItem = (id) => {
@@ -115,17 +117,20 @@ const App = () => {
     handleSelectedItem(id, title, details)
 }
 
+let screenDisplay = !fetching ? 
+        <FlatList 
+          data={items}
+          renderItem={({item}) => <ListItem item={item} deleteItem={deleteItem} handleItemView={handleItemView}/>}
+          style={styles.itemList}
+        /> :
+        <Spinner />
 
   return(
     <View style={styles.container}>
       <Header/>
       <ItemDetailsModal modalVisible={modalVisible} setModalVisible={setModalVisible} selectedItem={selectedItem} handleUpdateItem={handleUpdateItem} deleteItem={deleteItem}/>
       <AddItem handleAddItem={handleAddItem}/>
-      <FlatList 
-        data={items}
-        renderItem={({item}) => <ListItem item={item} deleteItem={deleteItem} handleItemView={handleItemView}/>}
-        style={styles.itemList}
-      />
+      {screenDisplay}
     </View>
   )
 }

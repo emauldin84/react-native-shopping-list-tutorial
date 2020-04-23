@@ -38,7 +38,8 @@ const AddItem = ({handleAddItem}) => {
             padding: 9,
             margin: 5,
             width: 200,
-            alignSelf: 'center'
+            alignSelf: 'center',
+            marginBottom: 15,
         },
         btnText: {
             color: 'darkslateblue',

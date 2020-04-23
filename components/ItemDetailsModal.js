@@ -50,6 +50,7 @@ const ItemDetailsModal = ({modalVisible, setModalVisible, selectedItem, handleUp
                     }
                 ])
         }else{
+            handleUpdateItem(selectedItem.id, titleText, detailsText)
             setModalVisible(false)
             setEditingTitle(false)
             setEditingDetails(false)
@@ -61,7 +62,7 @@ const ItemDetailsModal = ({modalVisible, setModalVisible, selectedItem, handleUp
     </View> :
     <View style={styles.modalContent}>
             <View onBlur={handleBlur}>
-                <TextInput placeholder='Enter Item Title' style={{...styles.text ,...styles.itemTitle, ...styles.textInput}} onChangeText={onTitleChange} value={titleText} />
+                <TextInput multiline={true} placeholder='Enter Item Title' style={{...styles.text ,...styles.itemTitle, ...styles.textInput}} onChangeText={onTitleChange} value={titleText} />
             </View>
     </View>
 
@@ -71,7 +72,7 @@ const ItemDetailsModal = ({modalVisible, setModalVisible, selectedItem, handleUp
     </View> :
     <View style={styles.modalContent}>
             <View onBlur={handleBlur}>
-                <TextInput placeholder='Enter Item Details' style={{...styles.text, ...styles.itemDetails, ...styles.textInput}} onChangeText={onDetailsChange} value={detailsText} />
+                <TextInput multiline={true} placeholder='Enter Item Details' style={{...styles.text, ...styles.itemDetails, ...styles.textInput}} onChangeText={onDetailsChange} value={detailsText} />
             </View>
     </View>
 
@@ -107,13 +108,11 @@ const ItemDetailsModal = ({modalVisible, setModalVisible, selectedItem, handleUp
         modalContent:{
             paddingHorizontal: 20,
             marginTop: 20,
-            
         },
         text:{
             padding: 8,
             borderWidth: 1,
             borderColor: '#fff',
-            height: 50
         },
         itemTitle: {
             fontSize: 30,
