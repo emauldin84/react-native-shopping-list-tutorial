@@ -8,30 +8,22 @@ import AddItem from './components/AddItem'
 import ItemDetailsModal from './components/ItemDetailsModal'
 
 const App = () => {
-  const [items, setItems] = useState([
-    // {id: Math.random().toString(), item: 'Milk', details: '2% in a carton.'},
-    // {id: Math.random().toString(), item: 'Eggs', details: ''},
-    // {id: Math.random().toString(), item: 'Bread', details: ''},
-    // {id: Math.random().toString(), item: 'Juice', details: ''},
-  ])
+  const [items, setItems] = useState([])
   useEffect(() => {
     firestore()
     .collection('items')
     .get()
     .then(querySnapshot => {
-      console.log(querySnapshot.docs)
       const items = querySnapshot.docs.map(item => {
-        console.log('ITEM', item._data)
+        console.log(item.id, '=>', item.data())
         return {
-          id: item._data.id,
-          item: item._data.item,
-          details: item._data.details
+          id: item.id,
+          item: item.data().item,
+          details: item.data().details
         }
       })
       setItems(items)
     })
-    
-
   }, [])
 
   const [modalVisible, setModalVisible] = useState(false)
