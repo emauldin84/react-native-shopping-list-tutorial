@@ -91,18 +91,27 @@ const App = () => {
   }
 
   const handleUpdateItem = (id, title, details) => {
-    let newItems = items.map(item => {
-      if (item.id === id){
-        return {
-          id,
-          item: title,
-          details
-        }
-      } else {
-        return item
-      }
+    // let newItems = items.map(item => {
+    //   if (item.id === id){
+    //     return {
+    //       id,
+    //       item: title,
+    //       details
+    //     }
+    //   } else {
+    //     return item
+    //   }
+    // })
+    firestore()
+    .collection('items')
+    .doc(id)
+    .update({
+      item: title,
+      details: details
     })
-    setItems(newItems)
+    .then(() => {
+      fetchSetItems()
+    })
     handleSelectedItem(id, title, details)
 }
 
