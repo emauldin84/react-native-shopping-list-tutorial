@@ -9,7 +9,14 @@ import ItemDetailsModal from './components/ItemDetailsModal'
 
 const App = () => {
   const [items, setItems] = useState([])
+  const [modalVisible, setModalVisible] = useState(false)
+  const [selectedItem, setSelectedItem] = useState({})
+
   useEffect(() => {
+    fetchSetItems()
+  }, [])
+
+  const fetchSetItems = () => {
     firestore()
     .collection('items')
     .get()
@@ -24,11 +31,7 @@ const App = () => {
       })
       setItems(items)
     })
-  }, [])
-
-  const [modalVisible, setModalVisible] = useState(false)
-  const [selectedItem, setSelectedItem] = useState({})
-
+  }
   const deleteItem = (id) => {
     setItems(prevItems => {
       return prevItems.filter(item => {
@@ -41,14 +44,24 @@ const App = () => {
     if(!item){
       Alert.alert('Error', 'Please enter an item')
     }else{
-      setItems(prevItems => {
-        return [
-          {
-            id: Math.random().toString(), 
-            item: item
-          },
-          ...prevItems
-        ]
+      // setItems(prevItems => {
+      //   return [
+      //     {
+      //       id: Math.random().toString(), 
+      //       item: item
+      //     },
+      //     ...prevItems
+      //   ]
+      // })
+      firestore()
+      .collection('items')
+      .doc(Math.random().toString())
+      .set({
+        item: item,
+        details: '',
+      })
+      .then(() => {
+        fetchSetItems()
       })
     }
   }
