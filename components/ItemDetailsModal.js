@@ -24,9 +24,11 @@ const ItemDetailsModal = ({modalVisible, setModalVisible, selectedItem, handleUp
     }
 
     const handleBlur = () => {
-        handleUpdateItem(selectedItem.id, titleText, detailsText)
-        setEditingTitle(false)
-        setEditingDetails(false)
+        let cb = () => {
+            setEditingTitle(false)
+            setEditingDetails(false)
+        }
+        handleUpdateItem(selectedItem.id, titleText, detailsText, cb)
         
     }
     const handleDeleteAndClose = () => {
@@ -50,12 +52,15 @@ const ItemDetailsModal = ({modalVisible, setModalVisible, selectedItem, handleUp
                     }
                 ])
         }else{
-            handleUpdateItem(selectedItem.id, titleText, detailsText),
-            setEditingTitle(false),
-            setEditingDetails(false),
-            setModalVisible(false)
+            let cb = () => {
+                setEditingTitle(false)
+                setEditingDetails(false)
+                setModalVisible(false)
+            }
+            handleUpdateItem(selectedItem.id, titleText, detailsText, cb)
         }
     }
+
     const itemTitleDisplay = !editingTitle ? 
     <View style={styles.modalContent}>
         <Text style={selectedItem.item ? {...styles.text, ...styles.itemTitle} : {...styles.text, ...styles.itemTitle, ...styles.lightGreyFont}} onPress={() => setEditingTitle(true)}>{selectedItem.item ? selectedItem.item : 'Enter Item Title'}</Text>

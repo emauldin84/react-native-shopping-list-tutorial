@@ -92,7 +92,7 @@ const App = () => {
     handleSelectedItem(id, item, details)
   }
 
-  const handleUpdateItem = (id, title, details) => {
+  const handleUpdateItem = (id, title, details, cb) => {
     // let newItems = items.map(item => {
     //   if (item.id === id){
     //     return {
@@ -116,6 +116,13 @@ const App = () => {
       })
       .then(() => {
         handleSelectedItem(id, title, details)
+        return 'done'
+      })
+      .then(() => {
+        cb()
+      })
+      .catch(err => {
+        console.log(err)
       })
 }
 
